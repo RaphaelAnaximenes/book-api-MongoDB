@@ -4,7 +4,7 @@ class LivroController {
 
     static listarLivros = async (req, res) => {
         try {
-            const livrosResultado = await livros.find().populate('author').exec();
+            const livrosResultado = await livros.find();
             res.status(200).json(livrosResultado);
         } catch (error) {
             console.error('Error fetching books:', error);
@@ -15,7 +15,7 @@ class LivroController {
 static listarLivrosPorId = async (req, res) => {
     const id = req.params.id;
     try {
-        const foundBook = await livros.findById(id);
+        const foundBook = await livros.findById(id).populate('author').exec();
         if (foundBook) {
             res.status(200).send(foundBook);
         } else {

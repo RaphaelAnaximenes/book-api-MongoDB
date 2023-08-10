@@ -1,15 +1,20 @@
 import mongoose from "mongoose";
 
-mongoose.connect("<string connect>");
+const uri = "<insert URI>";
+
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 const db = mongoose.connection;
 
+db.on("error", (error) => {
+  console.error("Erro de conexão:", error);
+});
 
 db.once("open", () => {
-    console.log("Conexão concluída com sucesso");
+  console.log("Conexão concluída com sucesso");
 });
 
-db.on("error", (error) => {
-    console.error("Erro de conexão:", error);
-});
 export default db;
